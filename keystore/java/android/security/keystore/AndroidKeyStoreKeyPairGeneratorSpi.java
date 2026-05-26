@@ -439,15 +439,8 @@ public abstract class AndroidKeyStoreKeyPairGeneratorSpi extends KeyPairGenerato
         }
     }
 
-@Override
+    @Override
     public KeyPair generateKeyPair() {
-        try {
-            com.android.internal.gmscompat.AttestationHooks.onEngineGetCertificateChain();
-        } catch (UnsupportedOperationException e) {
-            android.util.Log.i("GmsCompat/Attestation", "Blocked hardware attestation call for Play Integrity/SafetyNet.");
-            throw new java.security.ProviderException("Failed to generate key pair with attestation", e);
-        }
-
         if (mKeyStore == null || mSpec == null) {
             throw new IllegalStateException("Not initialized");
         }
